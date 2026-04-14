@@ -34,7 +34,7 @@ def health_check():
     }
 
 app.include_router(meetings.router)
-app.include_router(meetings.router)
+app.include_router(getObject.router)
 
 if __name__ == "__main__": 
     import uvicorn
