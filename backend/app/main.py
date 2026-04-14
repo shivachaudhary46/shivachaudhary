@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from backend.app.api import meetings
+from backend.app.api import meetings, getObject
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
@@ -33,6 +33,7 @@ def health_check():
         "status": "healthy", 
     }
 
+app.include_router(meetings.router)
 app.include_router(meetings.router)
 
 if __name__ == "__main__": 
