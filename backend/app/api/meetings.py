@@ -31,8 +31,15 @@ async def handle_booking(request: Request):
     # if signature != f"sha256={expected}":
     #     raise HTTPException(status_code=401, detail="Invalid Signature")
 
-    data = await request.json()
+    try :
+        data = await request.json() 
+    except Exception : 
+        return {"status": "ping received"}
+
     payload = data.get("payload", {})
+    if not payload: 
+        return {"status": "ping received"}
+
     attendees = payload.get("attendees", [])
     customer = attendees[0] if attendees else {}
     responses = payload.get("metadata", {}).get("responses", {})
@@ -45,12 +52,16 @@ async def handle_booking(request: Request):
     meeting_link = payload.get("videoCallData", {}).get("url", "")
     timezone     = customer.get("timeZone", "")
 
-    cursor = conn.cursor()
-    cursor.execute("""
-        INSERT INTO bookings (name, email, phone, reason, meeting_time, meeting_link, timezone)
-        VALUES (%s, %s, %s, %s, %s, %s, %s)
-    """, (name, email, phone, reason, meeting_time, meeting_link, timezone))
-    conn.commit()
-    cursor.close()
+    try: 
+        cursor = conn.cursor()
+        cursor.execute("""
+            INSERT INTO bookings (name, email, phone, reason, meeting_time, meeting_link, timezone)
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
+        """, (name, email, phone, reason, meeting_time, meeting_link, timezone))
+        conn.commit()
+        cursor.close()
+    except Exception as e: 
+        conn.rollback()
+        return {"status": "error", "detail": str(e)}
 
     return {"status": "saved"}
