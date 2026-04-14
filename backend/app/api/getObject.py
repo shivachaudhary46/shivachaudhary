@@ -5,7 +5,7 @@ router = APIRouter(
     prefix="/get"
 )
 
-@router.get("/clients")
+@router.get("/clients/")
 async def get_client_details(): 
     try: 
         cursor = conn.cursor() 
