@@ -1,0 +1,98 @@
+[
+    {
+        "title": "CampusV - Smart Bot for College Management System",
+        "explanation": "A system that provides instant Q/A support from knowledge base, Attendance management, Assignments & academic records, Fee & course information, Role-based dashboards for teachers and students.",
+        "image_url": "https://example.com/music.jpg",
+        "link": "https://github.com/shivachaudhary46/CampusV",
+        "tools_used": ["Python", "FastAPI", "Scikit-learn", "Langchain", "PostgreSQL", "Docker"],
+        "stars": 37
+    },
+    {
+        "title": "SanoAwaj - Speech Emotion Recognition",
+        "explanation": "A deep learning model that detects human emotions from audio using CNN and MFCC features. Got experience creating end-to-end ML pipeline including audio preprocessing, feature extraction, and model inference.",
+        "image_url": "https://example.com/parking.jpg",
+        "link": "https://github.com/shivachaudhary46/sanoawaj",
+        "tools_used": ["Python", "FastAPI", "Librosa", "TensorFlow", "CNN"],
+        "stars": 4
+    },
+    {
+        "title": "DSA Journey - A Pathway of Mastering Data Structures and Algorithms",
+        "explanation": "A complete DSA learning repository with concepts, patterns, and LeetCode solutions explained step by step.",
+        "image_url": "https://example.com/emotion.jpg",
+        "link": "https://github.com/shivachaudhary46/DSA-Journey",
+        "tools_used": ["Python", "C++"],
+        "stars": 19
+    },
+    {
+        "title": "Sastokinmel",
+        "explanation": "SastoKinmel is a centralized price comparison website for Nepali online shoppers who want to save both money and time. SastoKinmel helps consumers quickly find the best value without confusion or regret.",
+        "image_url": "https://example.com/todo.jpg",
+        "link": "https://github.com/shivachaudhary46/sastokinmel",
+        "tools_used": ["Python", "FastAPI", "Docker", "Elasticsearch", "PostgreSQL", "AWS(EC2, S3)"],
+        "stars": 4
+    },
+    {
+        "title": "Learning-n8n",
+        "explanation": "A hands-on repository exploring workflow automation using n8n, including integrations with APIs, Google Workspace, and real-world automation use cases.",
+        "image_url": "https://example.com/chess.jpg",
+        "link": "https://github.com/shivachaudhary46/learning-n8n",
+        "tools_used": ["Python", "n8n", "Google Workspace", "APIs"],
+        "stars": 3
+    },
+    {
+        "title": "LLM Engineering",
+        "explanation": "A collection of projects and experiments focused on building applications using large language models and prompt engineering.",
+        "image_url": "https://example.com/chess.jpg",
+        "link": "https://github.com/shivachaudhary46/llm-engineering",
+        "tools_used": ["Python", "LangChain", "OpenAI API"],
+        "stars": 3
+    },
+    {
+        "title": "Natural Language Processing",
+        "explanation": "A repository covering NLP concepts including text preprocessing, embeddings, and model building.",
+        "image_url": "https://example.com/chess.jpg",
+        "link": "https://github.com/shivachaudhary46/nlp",
+        "tools_used": ["Python", "NLTK", "Scikit-learn"],
+        "stars": 3
+    },
+    {
+        "title": "Deep Learning",
+        "explanation": "A practical implementation of deep learning models including ANN, CNN, and training pipelines.",
+        "image_url": "https://example.com/chess.jpg",
+        "link": "https://github.com/shivachaudhary46/deep-learning",
+        "tools_used": ["Python", "TensorFlow", "PyTorch"],
+        "stars": 3
+    },
+    {
+        "title": "Chess Game",
+        "explanation": "A chess application with move validation and AI-based decision-making for gameplay.",
+        "image_url": "https://example.com/chess.jpg",
+        "link": "https://github.com/shivachaudhary46/chess-game",
+        "tools_used": ["Python", "AI", "Game Logic"],
+        "stars": 3
+    },
+    {
+        "title": "Image Recognition System",
+        "explanation": "A computer vision project for recognizing and classifying images using deep learning models.",
+        "image_url": "https://example.com/chess.jpg",
+        "link": "https://github.com/shivachaudhary46/image-recognition",
+        "tools_used": ["Python", "CNN", "OpenCV"],
+        "stars": 3
+    },
+    {
+        "title": "Music Recommendation System",
+        "explanation": "A system that recommends songs based on user preferences using machine learning techniques.",
+        "image_url": "https://example.com/chess.jpg",
+        "link": "https://github.com/shivachaudhary46/music-recommendation",
+        "tools_used": ["Python", "ML", "Flask"],
+        "stars": 3
+    },
+    {
+        "title": "Object Oriented Programming",
+        "explanation": "A repository demonstrating core OOP concepts like inheritance, polymorphism, and encapsulation with examples.",
+        "image_url": "https://example.com/chess.jpg",
+        "link": "https://github.com/shivachaudhary46/oop",
+        "tools_used": ["Python", "C++"],
+        "stars": 3
+    }
+]
