@@ -8,17 +8,36 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 COPY requirements.txt .
 
-# Step 1: Install CPU-only torch FIRST before anything else
+# 1. CPU-only torch first (prevents sentence-transformers pulling CUDA torch)
 RUN pip install --user --no-cache-dir \
     torch --index-url https://download.pytorch.org/whl/cpu
 
-# Step 2: Now install everything else
-# sentence-transformers will see torch already installed and skip reinstalling it
-RUN pip install --user --no-cache-dir -r requirements.txt
+# 2. Install only what's needed for sentence-transformers (skip heavy extras)
+RUN pip install --user --no-cache-dir \
+    sentence-transformers==5.1.2 \
+    --no-deps
 
-# Step 3: Pre-bake the model into the image (avoids cold start delays)
+# 3. Install sentence-transformers actual required deps manually (lightweight ones only)
+RUN pip install --user --no-cache-dir \
+    transformers \
+    huggingface-hub \
+    numpy \
+    scikit-learn \
+    tqdm \
+    Pillow
+
+# 4. Install the rest of your requirements (WITHOUT ranx)
+RUN pip install --user --no-cache-dir \
+    fastapi \
+    uvicorn \
+    psycopg2-binary \
+    "elasticsearch==8.15.1" \
+    "fastapi-cli==0.0.5"
+
+# 5. Pre-bake model into image
 RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('all-MiniLM-L6-v2')"
 
+# ---- Final slim image ----
 FROM python:3.11-slim
 
 WORKDIR /app
@@ -29,4 +48,4 @@ COPY . .
 
 ENV PATH=/root/.local/bin:$PATH
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "backend.app.main:app", "--host", "0.0.0.0", "--port", "8000"]
