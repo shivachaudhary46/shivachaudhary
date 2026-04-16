@@ -61,7 +61,7 @@ def _insert_documents(
     return es.bulk(operations=operations)
 
 if __name__ == "__main__": 
-    with open("./data/documents.json") as f: 
+    with open("./data/projects.json") as f: 
         documents = json.load(f)
 
     index_data(documents=documents, use_n_gram_tokenizer=True)

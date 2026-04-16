@@ -42,7 +42,7 @@ def _insert_documents(
     return es.bulk(operations=operations)
 
 if __name__ == "__main__": 
-    with open("./data/documents.json") as f: 
+    with open("./data/projects.json") as f: 
         documents = json.load(f)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
