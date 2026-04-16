@@ -1,4 +1,4 @@
-import torch
+
 INDEX_NAME_DEFAULT="projects"
 INDEX_NAME_N_GRAM="projects_n_gram"
 INDEX_NAME_EMBEDDING="projects_embedding"
