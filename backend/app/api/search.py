@@ -29,8 +29,7 @@ POST   /search/                        - Index a new product into all 3 indexes
 DELETE /search/{doc_id}/               - Remove product from default index only
 '''
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model = SentenceTransformer("all-MiniLM-L6-v2").to(device)
+model = SentenceTransformer("all-MiniLM-L6-v2", device="cpu")
 
 def get_total_hits(response: ObjectApiResponse) -> int:
     logger.info(f"Total hits from response {response['hits']['total']['value']}")

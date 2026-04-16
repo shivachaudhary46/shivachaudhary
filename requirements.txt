@@ -5,5 +5,4 @@ elasticsearch==8.15.1
 fastapi-cli==0.0.5
 ranx==0.3.21
 tqdm==4.66.5
-torch==2.9.1
 sentence-transformers==5.1.2
