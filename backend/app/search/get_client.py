@@ -24,4 +24,3 @@ def get_es_client(max_retries: int = 1, sleep_time: int = 5) -> Elasticsearch:
             time.sleep(sleep_time)
             i += 1 
     raise ConnectionAbortedError("Failed to connect to Elasticsearch after multiple attempts.")
-https://localhost
