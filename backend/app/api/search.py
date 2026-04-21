@@ -37,7 +37,7 @@ def calculate_max_pages(total_hits: int, limit: int) -> int:
 
 def handle_error(e: Exception) -> HTMLResponse:
     error_message = f"An error occurred: {str(e)}"
-    logger.error("Error occured and HTMLResponse is going to handle it {e}")
+    logger.error(f"Error occured and HTMLResponse is going to handle it {e}")
     return HTMLResponse(content=error_message, status_code=500)
 
 @router.get("/")
