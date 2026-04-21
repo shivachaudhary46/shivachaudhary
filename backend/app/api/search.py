@@ -1,4 +1,3 @@
-
 INDEX_NAME_DEFAULT="projects"
 INDEX_NAME_N_GRAM="projects_n_gram"
 INDEX_NAME_EMBEDDING="projects_embedding"
@@ -6,7 +5,6 @@ INDEX_NAME_EMBEDDING="projects_embedding"
 from elastic_transport import ObjectApiResponse
 from fastapi import APIRouter
 from fastapi.responses import HTMLResponse
-from sentence_transformers import SentenceTransformer
 from ..search.get_client import get_es_client
 from ..loggers.logger import logger 
 
@@ -29,8 +27,6 @@ POST   /search/                        - Index a new product into all 3 indexes
 DELETE /search/{doc_id}/               - Remove product from default index only
 '''
 
-model = SentenceTransformer("all-MiniLM-L6-v2", device="cpu")
-
 def get_total_hits(response: ObjectApiResponse) -> int:
     logger.info(f"Total hits from response {response['hits']['total']['value']}")
     return response["hits"]["total"]["value"]
@@ -44,44 +40,33 @@ def handle_error(e: Exception) -> HTMLResponse:
     logger.error("Error occured and HTMLResponse is going to handle it {e}")
     return HTMLResponse(content=error_message, status_code=500)
 
-@router.get("/semantic_search/")
-async def semantic_search(
-    search_query: str, skip: int = 0, limit: int = 10, year: str | None = None
+@router.get("/")
+async def regular_search(
+    search_query: str,
+    skip: int = 0,
+    limit: int = 10,
+    tokenizer: str = "Standard",
 ) :
     try:
         es = get_es_client(max_retries=1, sleep_time=0)
-        embedded_query = model.encode(search_query)
-
         query = {
             "bool": {
                 "must": [
                     {
-                        "knn": {
-                            "field": "embedding",
-                            "query_vector": embedded_query,
-                            # Because we have 3333 documents, we can return them all.
-                            "k": 1e4,
+                        "multi_match": {
+                            "query": search_query,
+                            "fields": ["title", "explanation"],
                         }
                     }
                 ]
             }
         }
 
-        if year:
-            query["bool"]["filter"] = [
-                {
-                    "range": {
-                        "date": {
-                            "gte": f"{year}-01-01",
-                            "lte": f"{year}-12-31",
-                            "format": "yyyy-MM-dd",
-                        }
-                    }
-                }
-            ]
-
+        index_name = (
+            INDEX_NAME_DEFAULT if tokenizer == "Standard" else INDEX_NAME_N_GRAM
+        )
         response = es.search(
-            index=INDEX_NAME_EMBEDDING,
+            index=index_name,
             body={
                 "query": query,
                 "from": skip,
@@ -103,4 +88,3 @@ async def semantic_search(
         }
     except Exception as e:
         return handle_error(e)
-
