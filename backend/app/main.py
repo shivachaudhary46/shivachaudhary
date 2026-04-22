@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from backend.app.api import getClients, meetings, search
+from backend.app.api import getClients, meetings, search, connectSheet
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
@@ -35,6 +35,7 @@ def health_check():
 app.include_router(meetings.router)
 app.include_router(getClients.router)
 app.include_router(search.router)
+app.include_router(connectSheet.router)
 
 if __name__ == "__main__": 
     import uvicorn
