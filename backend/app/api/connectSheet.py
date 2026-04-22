@@ -22,7 +22,7 @@ async def sync_from_sheets(payload: SyncPayload):
     try: 
         for row in payload.rows:                    
             cursor.execute("""
-                INSERT INTO bookings (name, email, phone_no)
+                INSERT INTO users (name, email, phone_no)
                 VALUES (%s, %s, %s)
                 ON CONFLICT (email) DO UPDATE        
                 SET name     = EXCLUDED.name,
@@ -48,10 +48,10 @@ async def sync_status():
     """Check how many rows are in the DB"""
     cursor = conn.cursor()
     try:
-        cursor.execute("SELECT COUNT(*) FROM bookings")
+        cursor.execute("SELECT COUNT(*) FROM users")
         count = cursor.fetchone()[0]
         cursor.close()
-        return {"total_rows": count, "table": "bookings"}
+        return {"total_rows": count, "table": "users"}
     except Exception as e:
         cursor.close()
         raise HTTPException(status_code=500, detail=str(e))
