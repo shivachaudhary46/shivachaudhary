@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from backend.app.api import getClients, meetings, search, connectSheet
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
+from loggers.logger import logger
 import json
 
 @asynccontextmanager
@@ -11,9 +12,9 @@ async def lifespan(app: FastAPI):
         with open("./backend/app/search/data/projects.json") as f: 
             documents = json.load(f)
         index_data(documents=documents, use_n_gram_tokenizer=False)
-        print("Indexing Complete!")
+        logger.debug("Indexing complete!")
     except Exception as e: 
-        print(f"Indexing failed: {e}")
+        logger.debug(f"Indexing failed: {e}")
     yield 
 
 app = FastAPI(
