@@ -1,7 +1,7 @@
 import time 
 from pprint import pprint
 import os 
-from loggers.logger import logger
+from ..loggers.logger import logger
 import traceback
 
 from elasticsearch import Elasticsearch 
