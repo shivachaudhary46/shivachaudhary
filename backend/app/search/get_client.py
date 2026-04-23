@@ -11,7 +11,7 @@ def get_es_client(max_retries: int = 1, sleep_time: int = 5) -> Elasticsearch:
     while i < max_retries:
         try: 
             es = Elasticsearch(
-                os.getenv("RAILWAY_PRIVATE_DOMAIN"),
+                os.getenv("ELASTICSEARCH_URL"),
                 basic_auth=(
                     os.getenv("ELASTICSEARCH_USER"),
                     os.getenv("ELASTICSEARCH_PASSWORD")
