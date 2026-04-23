@@ -7,7 +7,7 @@ INDEX_NAME_N_GRAM="projects_n_gram"
 from elastic_transport import ObjectApiResponse
 from elasticsearch import Elasticsearch
 from tqdm import tqdm 
-from get_client import get_es_client
+from backend.app.search.get_client import get_es_client
 
 def index_data(documents: List[dict], use_n_gram_tokenizer: bool) -> None: 
     es = get_es_client(max_retries=5, sleep_time=5)

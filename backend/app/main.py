@@ -1,11 +1,26 @@
 from fastapi import FastAPI
 from backend.app.api import getClients, meetings, search, connectSheet
 from fastapi.middleware.cors import CORSMiddleware
+from contextlib import asynccontextmanager
+import json
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    try: 
+        from backend.app.search.index_data import index_data
+        with open("./backend/app/search/data/projects.json") as f: 
+            documents = json.load(f)
+        index_data(documents=documents, use_n_gram_tokenizer=False)
+        print("Indexing Complete!")
+    except Exception as e: 
+        print(f"Indexing failed: {e}")
+    yield 
 
 app = FastAPI(
     title="Shiva Chaudhary Portfolio", 
     description="A portfolio website.", 
-    version="1.0"
+    version="1.0",
+    lifespan=lifespan
 )
 
 app.add_middleware(
