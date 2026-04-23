@@ -9,10 +9,10 @@ def get_es_client(max_retries: int = 1, sleep_time: int = 5) -> Elasticsearch:
     while i < max_retries:
         try: 
             es = Elasticsearch(
-                os.getenv("ELASTICSEARCH_URL", "http://elasticsearch.railway.internal:9200"),
+                os.getenv("ELASTICSEARCH_URL"),
                 basic_auth=(
-                    os.getenv("ELASTICSEARCH_USER", "elastic"),
-                    os.getenv("ELASTICSEARCH_PASSWORD", "6AqhOxi*CPXYvCZl7Iln")
+                    os.getenv("ELASTICSEARCH_USER"),
+                    os.getenv("ELASTICSEARCH_PASSWORD")
                 ),
                 verify_certs=False  # keep this since Railway uses self-signed certs internally
             )
