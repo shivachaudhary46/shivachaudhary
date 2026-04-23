@@ -21,7 +21,7 @@ def get_es_client(max_retries: int = 1, sleep_time: int = 5) -> Elasticsearch:
             client_info = es.info()
             pprint(f'Connected to Elasticsearch! {client_info}')
             return es
-        except Exception: 
+        except Exception as e: 
             pprint("Could not connect to Elasticsearch, retrying....")
             logger.info(f"Elasticsearch error: {e}")
             logger.info(traceback.format_exc())
