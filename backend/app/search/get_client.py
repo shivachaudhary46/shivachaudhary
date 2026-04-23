@@ -1,6 +1,8 @@
 import time 
 from pprint import pprint
 import os 
+from loggers.logger import logger
+import traceback
 
 from elasticsearch import Elasticsearch 
 
@@ -17,10 +19,12 @@ def get_es_client(max_retries: int = 1, sleep_time: int = 5) -> Elasticsearch:
                 verify_certs=False  # keep this since Railway uses self-signed certs internally
             )
             client_info = es.info()
-            pprint('Connected to Elasticsearch!')
+            pprint(f'Connected to Elasticsearch! {client_info}')
             return es
         except Exception: 
             pprint("Could not connect to Elasticsearch, retrying....")
+            logger.info(f"Elasticsearch error: {e}")
+            logger.info(traceback.format_exc())
             time.sleep(sleep_time)
             i += 1 
     raise ConnectionAbortedError("Failed to connect to Elasticsearch after multiple attempts.")
