@@ -8,13 +8,14 @@ import json
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     try: 
+        print("Life span started")
         from backend.app.search.index_data import index_data
         with open("./backend/app/search/data/projects.json") as f: 
             documents = json.load(f)
         index_data(documents=documents, use_n_gram_tokenizer=False)
-        logger.debug("Indexing complete!")
+        logger.info("Indexing complete!")
     except Exception as e: 
-        logger.debug(f"Indexing failed: {e}")
+        logger.info(f"Indexing failed: {e}")
     yield 
 
 app = FastAPI(
