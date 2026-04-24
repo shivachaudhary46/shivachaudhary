@@ -1,7 +1,7 @@
 [
     {
         "title": "CampusV - Smart Bot for College Management System",
-        "explanation": "A system that provides instant Q/A support from knowledge base, Attendance management, Assignments & academic records, Fee & course information, Role-based dashboards for teachers and students.",
+        "explanation": "A system that provides instant Q&A support from knowledge base, Attendance management, Assignments & academic records, Fee & course information, Role-based dashboards for teachers and students.",
         "image_url": "https://example.com/music.jpg",
         "link": "https://github.com/shivachaudhary46/CampusV",
         "tools_used": ["Python", "FastAPI", "Scikit-learn", "Langchain", "PostgreSQL", "Docker"],
@@ -9,7 +9,7 @@
     },
     {
         "title": "SanoAwaj - Speech Emotion Recognition",
-        "explanation": "A deep learning model that detects human emotions from audio using CNN and MFCC features. Got experience creating end-to-end ML pipeline including audio preprocessing, feature extraction, and model inference.",
+        "explanation": "A deep learning model that detects human emotions from audio using CNN and MFCC features. Got experience creating end-to-end ML pipeline including audio preprocessing, feature extraction, and model inference. SOS message will be sent to Authoritative people",
         "image_url": "https://example.com/parking.jpg",
         "link": "https://github.com/shivachaudhary46/sanoawaj",
         "tools_used": ["Python", "FastAPI", "Librosa", "TensorFlow", "CNN"],
@@ -17,15 +17,15 @@
     },
     {
         "title": "DSA Journey - A Pathway of Mastering Data Structures and Algorithms",
-        "explanation": "A complete DSA learning repository with concepts, patterns, and LeetCode solutions explained step by step.",
+        "explanation": "A complete DSA learning repository with concepts, patterns, and LeetCode solutions explained step by step. Got solid understanding of Arrays, Stacks, Linked Lists, Graphs, Trees, Queues, Prefix Sum, Two Pointers, Sliding Window, DFS, BFS, Dynamic Programming, Top K elements, Binary Tree Traversal, Backtracking.",
         "image_url": "https://example.com/emotion.jpg",
         "link": "https://github.com/shivachaudhary46/DSA-Journey",
-        "tools_used": ["Python", "C++"],
+        "tools_used": ["Python", "C++", "Bash Scripting"],
         "stars": 19
     },
     {
         "title": "Sastokinmel",
-        "explanation": "SastoKinmel is a centralized price comparison website for Nepali online shoppers who want to save both money and time. SastoKinmel helps consumers quickly find the best value without confusion or regret.",
+        "explanation": "Sastokinmel is a centralized price comparison website for Nepali online shoppers who want to save both money and time. SastoKinmel helps consumers quickly find the best value without confusion or regret.",
         "image_url": "https://example.com/todo.jpg",
         "link": "https://github.com/shivachaudhary46/sastokinmel",
         "tools_used": ["Python", "FastAPI", "Docker", "Elasticsearch", "PostgreSQL", "AWS(EC2, S3)"],
@@ -52,7 +52,7 @@
         "explanation": "A repository covering NLP concepts including text preprocessing, embeddings, and model building.",
         "image_url": "https://example.com/chess.jpg",
         "link": "https://github.com/shivachaudhary46/nlp",
-        "tools_used": ["Python", "NLTK", "Scikit-learn"],
+        "tools_used": ["Python", "NLTK", "Scikit-learn", "TensorFlow"],
         "stars": 3
     },
     {
@@ -94,5 +94,14 @@
         "link": "https://github.com/shivachaudhary46/oop",
         "tools_used": ["Python", "C++"],
         "stars": 3
+    }, 
+    {
+        "title": "Machine Learning Algorithms",
+        "explanation": "A revision of every possible algorithm including Linear, Polynomial, Logistic, Support Vector Machines, Decision Tree, Random Forest, K-Nearest Neighbors, Support Vector Machine, Kernel SVM, Naive Bayes, K-Means Clustering, Hierarchical Clustering, Apriori, Eclat, Thompson Sampling, Sentiment Analysis, PCA, LDA, XG-Boost, K-Fold Cross-Validation",
+        "image_url": "https://example.com/chess.jpg",
+        "link": "https://github.com/shivachaudhary46/machine-learning-course-slides",
+        "tools_used": ["Python", "Scikit-learn", "PyTorch"],
+        "stars": 3
     }
+
 ]
