@@ -1,0 +1,35 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --navy:           #0a192f;
+  --navy-light:     #112240;
+  --navy-shadow:    #020c1b;
+  --slate:          #8892b0;
+  --slate-light:    #a8b2d8;
+  --slate-lightest: #ccd6f6;
+  --white:          #e6f1ff;
+  --teal:           #64ffda;
+  --font-sans:      'Inter', system-ui, sans-serif;
+  --font-mono:      'Fira Code', 'SF Mono', monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--navy);
+  color: var(--slate);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--navy-shadow); }
+::-webkit-scrollbar-thumb { background: #233554; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #2d4a76; }

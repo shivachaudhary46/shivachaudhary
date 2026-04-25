@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Photo Gallery</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0a;
+    --surface: #141414;
+    --border: rgba(255,255,255,0.08);
+    --text: #f0f0f0;
+    --muted: #888;
+    --accent: #e8d5b7;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+  }
+
+  /* ── PREVIEW WIDGET ── */
+  .preview-widget {
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .preview-widget:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  }
+  .preview-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 2px;
+    width: 180px;
+    height: 180px;
+    background: #000;
+  }
+  .preview-grid .cell {
+    overflow: hidden;
+    background: #1a1a1a;
+  }
+  .preview-grid .cell img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: opacity 0.2s;
+  }
+  .preview-grid .cell:first-child {
+    position: relative;
+  }
+  .preview-grid .cell:first-child::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(232,213,183,0.15), transparent);
+    pointer-events: none;
+  }
+
+  /* ── MODAL OVERLAY ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 1000;
+    overflow-y: auto;
+    backdrop-filter: blur(8px);
+  }
+  .modal-overlay.active { display: block; }
+
+  .modal-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 0 60px;
+  }
+
+  /* ── MODAL HEADER ── */
+  .modal-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(10,10,10,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .close-btn {
+    background: none;
+    border: none;
+    color: var(--text);
+    cursor: pointer;
+    font-size: 24px;
+    padding: 4px 8px;
+    border-radius: 8px;
+    transition: background 0.15s;
+    line-height: 1;
+  }
+  .close-btn:hover { background: rgba(255,255,255,0.08); }
+
+  /* ── INSTAGRAM GRID ── */
+  .insta-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3px;
+    padding: 3px;
+  }
+
+  .insta-cell {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+    cursor: pointer;
+    background: #1a1a1a;
+  }
+  .insta-cell img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+  .insta-cell:hover img { transform: scale(1.05); }
+  .insta-cell-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0);
+    transition: background 0.2s;
+  }
+  .insta-cell:hover .insta-cell-overlay {
+    background: rgba(0,0,0,0.25);
+  }
+
+  /* ── LIGHTBOX ── */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    background: rgba(0,0,0,0.95);
+    align-items: center;
+    justify-content: center;
+  }
+  .lightbox.active { display: flex; }
+  .lightbox-content {
+    max-width: 900px;
+    width: 95vw;
+    max-height: 90vh;
+    background: #000;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .lightbox-content img {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+    display: block;
+  }
+  .lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(0,0,0,0.6);
+    border: none;
+    color: white;
+    font-size: 20px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+  }
+  .lightbox-close:hover { background: rgba(255,255,255,0.2); }
+  .lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    border: none;
+    color: white;
+    font-size: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+  }
+  .lightbox-nav:hover { background: rgba(255,255,255,0.2); }
+  .lightbox-prev { left: 16px; }
+  .lightbox-next { right: 16px; }
+
+  /* ── DEMO PAGE LAYOUT ── */
+  .page {
+    padding: 60px 40px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .page-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .page-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 400;
+    color: var(--accent);
+    margin-bottom: 40px;
+  }
+  .section-label {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .widget-row {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+  }
+  .widget-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+  .widget-label {
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  @media (max-width: 640px) {
+    .insta-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- DEMO PAGE -->
+<div class="page">
+  <p class="page-title">Portfolio</p>
+  <h1 class="page-name">Shiva Chaudhary</h1>
+  <div class="widget-row">
+    <div class="widget-wrap">
+      <div class="preview-widget" onclick="openGallery('projects')">
+        <div class="preview-grid" id="preview-projects"></div>
+      </div>
+      <span class="widget-label">Gallery</span>
+    </div>
+  </div>
+</div>
+
+<!-- GALLERY MODAL -->
+<div class="modal-overlay" id="galleryModal">
+  <div class="modal-inner">
+    <div class="modal-header">
+      <button class="close-btn" onclick="closeGallery()">✕</button>
+    </div>
+    <div class="insta-grid" id="instaGrid"></div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <button class="lightbox-nav lightbox-prev" onclick="navLightbox(-1)">&#8249;</button>
+  <button class="lightbox-nav lightbox-next" onclick="navLightbox(1)">&#8250;</button>
+  <div class="lightbox-content">
+    <img id="lightboxImg" src="" alt="">
+  </div>
+</div>
+
+<script>
+const galleries = {
+  projects: {
+    items: [
+      { src: 'https://picsum.photos/seed/proj1/600/600' },
+      { src: 'https://picsum.photos/seed/proj2/600/600' },
+      { src: 'https://picsum.photos/seed/proj3/600/600' },
+      { src: 'https://picsum.photos/seed/proj4/600/600' },
+      { src: 'https://picsum.photos/seed/proj5/600/600' },
+      { src: 'https://picsum.photos/seed/proj6/600/600' },
+      { src: 'https://picsum.photos/seed/proj7/600/600' },
+      { src: 'https://picsum.photos/seed/proj8/600/600' },
+      { src: 'https://picsum.photos/seed/proj9/600/600' },
+      { src: 'https://picsum.photos/seed/proj10/600/600' },
+      { src: 'https://picsum.photos/seed/proj11/600/600' },
+      { src: 'https://picsum.photos/seed/proj12/600/600' },
+    ]
+  },
+};
+
+let currentGallery = null;
+let currentIndex = 0;
+
+// ── BUILD PREVIEW GRIDS ──
+Object.keys(galleries).forEach(key => {
+  const el = document.getElementById('preview-' + key);
+  galleries[key].items.slice(0, 9).forEach(item => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    const img = document.createElement('img');
+    img.src = item.src;
+    img.alt = '';
+    cell.appendChild(img);
+    el.appendChild(cell);
+  });
+});
+
+// ── OPEN GALLERY ──
+function openGallery(key) {
+  currentGallery = key;
+  const grid = document.getElementById('instaGrid');
+  grid.innerHTML = '';
+  galleries[key].items.forEach((item, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'insta-cell';
+    cell.onclick = () => openLightbox(i);
+    cell.innerHTML = `
+      <img src="${item.src}" alt="" loading="lazy">
+      <div class="insta-cell-overlay"></div>`;
+    grid.appendChild(cell);
+  });
+  document.getElementById('galleryModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeGallery() {
+  document.getElementById('galleryModal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+// ── LIGHTBOX ──
+function openLightbox(index) {
+  currentIndex = index;
+  renderLightbox();
+  document.getElementById('lightbox').classList.add('active');
+}
+
+function renderLightbox() {
+  const item = galleries[currentGallery].items[currentIndex];
+  document.getElementById('lightboxImg').src = item.src;
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+}
+
+function navLightbox(dir) {
+  const items = galleries[currentGallery].items;
+  currentIndex = (currentIndex + dir + items.length) % items.length;
+  renderLightbox();
+}
+
+// ── KEYBOARD NAV ──
+document.addEventListener('keydown', e => {
+  if (document.getElementById('lightbox').classList.contains('active')) {
+    if (e.key === 'ArrowLeft') navLightbox(-1);
+    if (e.key === 'ArrowRight') navLightbox(1);
+    if (e.key === 'Escape') closeLightbox();
+  } else if (document.getElementById('galleryModal').classList.contains('active')) {
+    if (e.key === 'Escape') closeGallery();
+  }
+});
+
+document.getElementById('galleryModal').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeGallery();
+});
+document.getElementById('lightbox').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeLightbox();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+.section {
+  margin-bottom: 96px;
+}
+
+.section-label {
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--slate-lightest);
+  font-weight: 600;
+  margin-bottom: 32px;
+  display: none;
+}
+
+/* About */
+.about-content p {
+  margin-bottom: 16px;
+  font-size: 1rem;
+  color: var(--slate);
+  line-height: 1.7;
+}
+
+.about-content a {
+  color: var(--teal);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.about-content a:hover {
+  border-color: var(--teal);
+}
+
+/* Cards (shared by Experience + Projects) */
+.card {
+  display: grid;
+  padding: 20px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  margin-bottom: 2px;
+  text-decoration: none;
+  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  background: var(--navy-light);
+  border-color: rgba(100, 255, 218, 0.12);
+  box-shadow: 0 8px 32px -8px rgba(2, 12, 27, 0.7);
+}
+
+.card-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--slate-lightest);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s;
+}
+
+.card-title svg {
+  opacity: 0;
+  transition: opacity 0.2s, transform 0.2s;
+  flex-shrink: 0;
+}
+
+.card:hover .card-title {
+  color: var(--teal);
+}
+
+.card:hover .card-title svg {
+  opacity: 1;
+  transform: translate(2px, -2px);
+}
+
+.card-desc {
+  font-size: 0.9rem;
+  color: var(--slate);
+  line-height: 1.65;
+  margin-bottom: 14px;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--teal);
+  background: rgba(100, 255, 218, 0.08);
+  border-radius: 99px;
+  padding: 4px 14px;
+  letter-spacing: 0.04em;
+}
+
+/* Experience card */
+.exp-card {
+  grid-template-columns: 110px 1fr;
+  gap: 0 24px;
+}
+
+.exp-date {
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--slate);
+  padding-top: 4px;
+  line-height: 1.5;
+}
+
+.exp-sub {
+  font-size: 0.85rem;
+  color: var(--slate);
+  margin-bottom: 10px;
+}
+
+/* Project card */
+.project-card {
+  grid-template-columns: 80px 1fr;
+  gap: 0 20px;
+  align-items: start;
+}
+
+.project-icon {
+  width: 80px;
+  height: 56px;
+  background: linear-gradient(135deg, #112240, #0d2137);
+  border-radius: 4px;
+  border: 1px solid rgba(100, 255, 218, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  flex-shrink: 0;
+}
+
+/* Footer */
+.footer-note {
+  font-size: 0.82rem;
+  color: var(--slate);
+  line-height: 1.7;
+  margin-top: 48px;
+  padding-bottom: 96px;
+}
+
+.footer-note a {
+  color: var(--slate-lightest);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.footer-note a:hover {
+  color: var(--teal);
+  border-color: var(--teal);
+}
+
+/* Mobile */
+@media (max-width: 860px) {
+  .section-label { display: block; }
+  .exp-card { grid-template-columns: 1fr; }
+  .exp-date { margin-bottom: 4px; }
+}

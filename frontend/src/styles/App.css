@@ -1,0 +1,27 @@
+.app-layout {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 48px;
+  display: flex;
+  gap: 80px;
+  min-height: 100vh;
+}
+
+.right-panel {
+  flex: 1;
+  padding: 96px 0;
+  max-width: 680px;
+}
+
+@media (max-width: 860px) {
+  .app-layout {
+    flex-direction: column;
+    gap: 0;
+    padding: 0 20px;
+  }
+  .right-panel {
+    padding: 0 0 80px;
+  }
+}

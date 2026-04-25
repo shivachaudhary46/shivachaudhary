@@ -1,0 +1,105 @@
+.left-panel {
+  position: sticky;
+  top: 0;
+  width: 320px;
+  flex-shrink: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 96px 0;
+}
+
+.left-top h1 {
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 700;
+  color: var(--slate-lightest);
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+
+.left-top h2 {
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--slate-lightest);
+  margin-bottom: 20px;
+}
+
+.left-top p {
+  font-size: 0.95rem;
+  color: var(--slate);
+  max-width: 260px;
+  line-height: 1.65;
+}
+
+/* Nav */
+.nav {
+  margin-top: 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.nav a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--slate);
+  text-decoration: none;
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  padding: 6px 0;
+  transition: color 0.2s;
+  width: fit-content;
+}
+
+.nav-line {
+  height: 1px;
+  background: var(--slate);
+  width: 32px;
+  transition: width 0.3s ease, background 0.2s;
+  display: inline-block;
+}
+
+.nav a:hover,
+.nav a.active {
+  color: var(--slate-lightest);
+}
+
+.nav a:hover .nav-line,
+.nav a.active .nav-line {
+  width: 64px;
+  background: var(--slate-lightest);
+}
+
+/* Socials */
+.socials {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.socials a {
+  color: var(--slate);
+  transition: color 0.2s, transform 0.2s;
+  display: flex;
+}
+
+.socials a:hover {
+  color: var(--teal);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 860px) {
+  .left-panel {
+    position: relative;
+    width: 100%;
+    height: auto;
+    padding: 60px 0 32px;
+  }
+  .nav { display: none; }
+}
